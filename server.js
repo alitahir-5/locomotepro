@@ -144,8 +144,15 @@ app.post("/api/chat", async (req, res) => {
     const raw = ((data.candidates || [])[0]?.content?.parts || []).map((p) => p.text || "").join("");
     if (mode === "agent") return res.json({ reply: raw.trim() });
     let parsed;
-    try { parsed = JSON.parse(raw.replace(/```json/g, "").replace(/```/g, "").trim()); }
-    catch { parsed = { reply: raw, escalate: false, reason: "none" }; }
+    try {
+      let t = raw.replace(/```json/gi, "").replace(/```/g, "").trim();
+      const i = t.indexOf("{"), j = t.lastIndexOf("}");
+      if (i !== -1 && j !== -1 && j > i) t = t.slice(i, j + 1);
+      parsed = JSON.parse(t);
+    } catch {
+      const m = raw.match(/"reply"\s*:\s*"([\s\S]*?)"\s*(?:,\s*"escalate"|\})/);
+      parsed = { reply: m ? m[1].replace(/\\"/g, '"').replace(/\\n/g, " ") : raw, escalate: false, reason: "none" };
+    }
     res.json(parsed);
   } catch (e) {
     console.error("chat error", e);
