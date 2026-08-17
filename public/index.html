@@ -3,62 +3,51 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>LocomotePro Voice</title>
+<title>LocomotePro Assistant</title>
 <style>
-  :root{
-    --navy0:#031024; --navy1:#05091A; --navy2:#0B1330; --panel:#111B3D;
-    --line:rgba(143,160,188,0.16); --cyan:#2DD4E0; --green:#2BD17E; --amber:#F6A93B;
-    --text:#EEF3FB; --muted:#8FA0BC;
-  }
+  :root{--navy0:#031024;--navy1:#05091A;--navy2:#0B1330;--panel:#111B3D;
+    --line:rgba(143,160,188,0.16);--cyan:#2DD4E0;--green:#2BD17E;--amber:#F6A93B;--text:#EEF3FB;--muted:#8FA0BC;}
   *{box-sizing:border-box}
   body{margin:0;background:var(--navy1);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     display:flex;justify-content:center;padding:24px 12px;min-height:100vh}
-  .card{width:100%;max-width:440px;height:680px;background:var(--navy2);border:1px solid var(--line);
+  .card{width:100%;max-width:440px;height:690px;background:var(--navy2);border:1px solid var(--line);
     border-radius:20px;box-shadow:0 20px 55px rgba(0,0,0,.45);display:flex;flex-direction:column;overflow:hidden}
   .head{background:var(--navy0);padding:15px 18px 13px}
   .row{display:flex;align-items:center;justify-content:space-between}
   .brand{display:flex;align-items:center;gap:10px}
   .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--cyan),var(--green));
     display:flex;align-items:center;justify-content:center;font-size:20px}
+  .back{width:30px;height:30px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.04);
+    color:var(--muted);cursor:pointer;font-size:16px}
   .title{font-weight:600;font-size:15px;color:var(--text)}
   .sub{font-size:11px;color:var(--muted)}
-  .langs{display:flex;gap:4px}
-  .langs button{font-size:11.5px;padding:3px 8px;border-radius:7px;border:none;cursor:pointer;
-    background:rgba(255,255,255,.06);color:var(--muted)}
+  .langs{display:flex;gap:4px;align-items:center}
+  .langs button{font-size:11.5px;padding:3px 8px;border-radius:7px;border:none;cursor:pointer;background:rgba(255,255,255,.06);color:var(--muted)}
   .langs button.on{background:var(--cyan);color:var(--navy0);font-weight:600}
   .body{flex:1;display:flex;flex-direction:column;min-height:0}
-  .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 26px}
-  .scroll{flex:1;overflow-y:auto;padding:16px 16px 8px}
-  .msg{display:flex;margin-bottom:9px}
-  .msg .b{max-width:88%;padding:8px 12px;border-radius:12px;font-size:13.5px;line-height:1.5;
-    display:flex;gap:7px;align-items:flex-start}
+  .center{flex:1;display:flex;flex-direction:column;justify-content:center;padding:26px 22px}
+  .h1{font-size:20px;font-weight:600;color:var(--text);margin-bottom:6px}
+  .p{font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:22px}
+  .opt{display:flex;gap:14px;align-items:center;text-align:left;cursor:pointer;padding:16px;border-radius:14px;background:var(--panel);border:1px solid var(--line);margin-bottom:12px;width:100%}
+  .opt .ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+  .opt .t{font-size:15px;font-weight:600;color:var(--text)}
+  .opt .d{font-size:12.5px;color:var(--muted);line-height:1.4}
+  .note{display:flex;gap:7px;align-items:center;margin-top:8px;font-size:11.5px;color:var(--muted)}
+  .scroll{flex:1;overflow-y:auto;padding:16px 14px 8px}
+  .msg{display:flex;margin-bottom:10px}
+  .msg .b{max-width:86%;padding:9px 13px;border-radius:13px;font-size:14px;line-height:1.55;white-space:pre-wrap;word-break:break-word;display:flex;gap:7px;align-items:flex-start}
   .msg.u{justify-content:flex-end}
-  .msg.u .b{background:rgba(45,212,224,.12);color:var(--text);border:1px solid rgba(45,212,224,.3)}
-  .msg.a .b{background:var(--panel);color:var(--text);border:1px solid var(--line)}
-  .msg.g .b{background:var(--panel);color:var(--text);border:1px solid rgba(43,209,126,.35)}
+  .msg.u .b{background:var(--cyan);color:var(--navy0);border-top-right-radius:3px}
+  .msg.a .b{background:var(--panel);color:var(--text);border:1px solid var(--line);border-top-left-radius:3px}
+  .msg.g .b{background:var(--panel);color:var(--text);border:1px solid rgba(43,209,126,.35);border-top-left-radius:3px}
   .who{display:block;font-size:10.5px;color:var(--green);font-weight:600;margin-bottom:2px}
-  .dot{width:14px;height:14px;flex:none;margin-top:2px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+  .chip{font-size:12.5px;color:var(--cyan);background:rgba(45,212,224,.08);border:1px solid var(--line);border-radius:20px;padding:6px 11px;cursor:pointer}
   .banner{border-radius:10px;padding:8px 11px;margin-bottom:12px;font-size:12px}
-  .banner.warn{background:rgba(246,169,59,.10);border:1px solid rgba(246,169,59,.28);color:var(--amber)}
-  .banner.live{background:rgba(43,209,126,.10);border:1px solid rgba(43,209,126,.28);color:var(--green);
-    display:flex;align-items:center;justify-content:space-between}
-  .banner.live button{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--line);
-    border-radius:8px;padding:3px 10px;font-size:11.5px;cursor:pointer}
-  .status{font-size:13px;margin:12px 0;font-weight:500;color:var(--muted)}
-  .status.listening{color:var(--cyan)} .status.speaking{color:var(--green)}
-  .controls{display:flex;align-items:center;gap:14px}
-  .mini{width:42px;height:42px;border-radius:21px;border:1px solid var(--line);background:rgba(255,255,255,.04);
-    cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px;text-decoration:none}
-  .mic{width:58px;height:58px;border-radius:29px;border:none;cursor:pointer;
-    background:linear-gradient(135deg,var(--cyan),var(--green));display:flex;align-items:center;justify-content:center;font-size:24px}
-  .mic.on{background:var(--cyan);box-shadow:0 0 0 6px rgba(45,212,224,.15);animation:bob 1.1s ease-in-out infinite}
-  .mic.sp{background:var(--green)}
-  .foot{border-top:1px solid var(--line);background:var(--navy0);padding:14px 18px 16px;display:flex;flex-direction:column;align-items:center}
-  .voicebar{margin-bottom:12px;max-width:260px;background:var(--panel);color:var(--text);border:1px solid var(--line);
-    border-radius:9px;padding:5px 9px;font-size:11.5px}
-  .btn{border:none;border-radius:14px;padding:13px 30px;font-size:15px;font-weight:600;cursor:pointer;
-    background:linear-gradient(135deg,var(--cyan),var(--green));color:var(--navy0)}
-  .esc{margin:0 14px 10px;border:1px solid rgba(43,209,126,.35);border-radius:14px;overflow:hidden;background:var(--panel)}
+  .warn{background:rgba(246,169,59,.10);border:1px solid rgba(246,169,59,.28);color:var(--amber)}
+  .live{background:rgba(43,209,126,.10);border:1px solid rgba(43,209,126,.28);color:var(--green);display:flex;align-items:center;justify-content:space-between}
+  .live button{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-size:11.5px;cursor:pointer}
+  .esc{margin:0 0 12px;border:1px solid rgba(43,209,126,.35);border-radius:14px;overflow:hidden;background:var(--panel)}
   .esc .top{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:linear-gradient(90deg,var(--navy0),#0C2A1B)}
   .esc .tag{font-size:9.5px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;border:1px solid rgba(43,209,126,.4);border-radius:6px;padding:2px 6px}
   .esc .pad{padding:11px 13px}
@@ -68,21 +57,75 @@
   .esc .two{display:flex;gap:8px}
   .esc .call{flex:1;text-align:center;background:var(--green);color:var(--navy0);border-radius:10px;padding:9px;font-size:13px;font-weight:600;text-decoration:none}
   .esc .keep{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:12.5px;cursor:pointer}
-  .orb{position:relative;width:96px;height:96px;display:flex;align-items:center;justify-content:center}
-  .orb .core{width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--cyan),var(--navy2));
-    box-shadow:0 0 26px rgba(45,212,224,.4),inset 0 0 18px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-size:26px}
+  .foot{border-top:1px solid var(--line);background:var(--navy0);padding:10px 12px}
+  .inp{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:5px 6px 5px 12px}
+  .inp input{flex:1;border:none;outline:none;background:transparent;font-size:14px;color:var(--text)}
+  .send{width:36px;height:36px;border-radius:10px;border:none;background:var(--cyan);color:var(--navy0);cursor:pointer;font-size:16px;flex:none}
+  .send:disabled{background:rgba(143,160,188,.25);cursor:default}
+  .signin{font-size:12px;border:none;border-radius:9px;padding:6px 11px;cursor:pointer;font-weight:600;background:var(--cyan);color:var(--navy0)}
+  .signout{font-size:12px;border:1px solid var(--line);border-radius:9px;padding:6px 10px;cursor:pointer;background:rgba(255,255,255,.06);color:var(--muted)}
+  /* voice */
+  .vcenter{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 26px}
+  .btn{border:none;border-radius:14px;padding:13px 30px;font-size:15px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,var(--cyan),var(--green));color:var(--navy0)}
+  .status{font-size:13px;margin:12px 0;font-weight:500;color:var(--muted)}
+  .status.listening{color:var(--cyan)} .status.speaking{color:var(--green)}
+  .controls{display:flex;align-items:center;gap:14px;justify-content:center}
+  .mini{width:42px;height:42px;border-radius:21px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px;text-decoration:none}
+  .mic{width:58px;height:58px;border-radius:29px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--cyan),var(--green));display:flex;align-items:center;justify-content:center;font-size:24px}
+  .mic.on{background:var(--cyan);box-shadow:0 0 0 6px rgba(45,212,224,.15);animation:bob 1.1s ease-in-out infinite}
+  .mic.sp{background:var(--green)}
+  .orb{position:relative;width:96px;height:96px;display:flex;align-items:center;justify-content:center;margin:0 auto}
+  .orb .core{width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--cyan),var(--navy2));box-shadow:0 0 26px rgba(45,212,224,.4),inset 0 0 18px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-size:26px}
   .orb.speaking .core{background:radial-gradient(circle at 35% 30%,var(--green),var(--navy2));box-shadow:0 0 26px rgba(43,209,126,.45);animation:bob .9s ease-in-out infinite}
   .orb.thinking .core{animation:spin 1.6s linear infinite}
   .orb .ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--cyan);animation:ring 1.8s ease-out infinite}
   .orb.speaking .ring{border-color:var(--green)}
   .orb .ring.b{animation-delay:.6s}.orb .ring.c{animation-delay:1.2s}
-  .hidden{display:none!important}
   .type{display:flex;align-items:center;gap:8px;margin-top:14px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:5px 6px 5px 12px}
   .type input{flex:1;border:none;outline:none;background:transparent;font-size:14px;color:var(--text)}
   .type button{width:34px;height:34px;border-radius:9px;border:none;background:var(--cyan);color:var(--navy0);cursor:pointer;font-size:15px}
+  .hidden{display:none!important}
   [dir=rtl] .msg.u{justify-content:flex-start}
   [dir=rtl] .msg.a,[dir=rtl] .msg.g{justify-content:flex-end}
   @keyframes ring{0%{transform:scale(.75);opacity:.55}100%{transform:scale(1.7);opacity:0}}
+  .fl{font-size:11.5px;color:var(--muted);margin-bottom:6px;display:block}
+  .avatar{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--green));display:flex;align-items:center;justify-content:center;font-size:42px;margin:0 auto}
+  .avatar.rng{animation:cring 1.5s ease-out infinite}
+  @keyframes cring{0%{box-shadow:0 0 0 0 rgba(45,212,224,.45)}100%{box-shadow:0 0 0 28px rgba(45,212,224,0)}}
+  .calltxt{text-align:center;color:var(--text);font-size:18px;font-weight:600;margin-top:20px}
+  .callsub{text-align:center;color:var(--muted);font-size:13px;margin-top:4px}
+  .dots3{display:flex;gap:6px;justify-content:center;margin-top:14px}
+  .dots3 span{width:8px;height:8px;border-radius:8px;background:var(--cyan);animation:bl 1.3s infinite}
+  .dots3 span:nth-child(2){animation-delay:.2s}.dots3 span:nth-child(3){animation-delay:.4s}
+  @keyframes bl{0%,80%,100%{opacity:.25}40%{opacity:1}}
+  .keypad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+  .key{display:flex;align-items:center;gap:10px;padding:12px 12px;border-radius:12px;background:var(--panel);border:1px solid var(--line);cursor:pointer;color:var(--text);font-size:13.5px}
+  .key .num{width:28px;height:28px;border-radius:50%;background:rgba(45,212,224,.15);border:1px solid rgba(45,212,224,.4);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--cyan);font-size:14px;flex:none}
+  .key.on{border-color:var(--green)}
+  .talk{width:100%;background:linear-gradient(135deg,var(--cyan),var(--green));color:var(--navy0);border:none;border-radius:12px;padding:12px;font-size:14.5px;font-weight:600;cursor:pointer}
+  .hangpill{background:#e5484d;color:#fff;border:none;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer}
+  .callscreen{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
+  .calltop{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 24px;text-align:center;overflow-y:auto}
+  .calltimer{color:var(--muted);font-size:13px;letter-spacing:.5px;margin-bottom:22px}
+  .cav{position:relative;width:130px;height:130px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .cavcore{width:104px;height:104px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--green));display:flex;align-items:center;justify-content:center;font-size:46px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .cav .ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--cyan);opacity:0}
+  .cav.listening .ring{animation:ring 1.8s ease-out infinite;border-color:var(--cyan)}
+  .cav.speaking .ring{animation:ring 1.6s ease-out infinite;border-color:var(--green)}
+  .cav.thinking .cavcore{animation:spin 1.6s linear infinite}
+  .cav .ring.b{animation-delay:.6s}.cav .ring.c{animation-delay:1.2s}
+  .cav.speaking .cavcore{animation:bob .9s ease-in-out infinite}
+  .cname{color:var(--text);font-size:20px;font-weight:600;margin-top:24px}
+  .cstatus{font-size:13.5px;color:var(--muted);margin-top:6px}
+  .cstatus.listening{color:var(--cyan)}.cstatus.speaking{color:var(--green)}
+  .caption{color:var(--text);font-size:14px;line-height:1.5;margin-top:16px;min-height:44px;max-width:320px;opacity:.92}
+  .callbar{display:flex;align-items:center;justify-content:space-around;padding:12px 22px 18px}
+  .cbtn{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .cico{width:56px;height:56px;border-radius:50%;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--text)}
+  .cico.on{background:var(--cyan);color:var(--navy0);border-color:var(--cyan)}
+  .clbl{font-size:11px;color:var(--muted)}
+  .cend{background:#e5484d;border:none;cursor:pointer;width:64px;height:64px;border-radius:50%;font-size:26px;color:#fff;display:flex;align-items:center;justify-content:center}
+  .cendwrap{display:flex;flex-direction:column;align-items:center;gap:6px}
   @keyframes bob{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
   @keyframes spin{to{transform:rotate(360deg)}}
   @media(prefers-reduced-motion:reduce){*{animation:none!important}}
@@ -92,10 +135,7 @@
 <div class="card">
   <div class="head">
     <div class="row">
-      <div class="brand">
-        <div class="logo">🚚</div>
-        <div><div class="title">LocomotePro</div><div class="sub">Voice assistant · Wahyd LOS</div></div>
-      </div>
+      <div class="brand" id="brand"></div>
       <div class="langs" id="langs"></div>
     </div>
   </div>
@@ -103,240 +143,320 @@
 </div>
 
 <script>
-const HELPLINE = "+880 1891-446666";
-const SPECIALIST = "Tanvir Ahmed";
-const CODE = { en:"en-US", ur:"ur-PK", ar:"ar-SA", bn:"bn-BD" };
-const RTL = { en:false, ur:true, ar:true, bn:false };
-const LANGS = [ {id:"en",label:"EN"},{id:"ur",label:"اردو"},{id:"ar",label:"عربي"},{id:"bn",label:"বাংলা"} ];
+const HELPLINE="+880 1891-446666", SPECIALIST="Tanvir Ahmed", COMPANY="Meghna Knitwear Ltd";
+const CODE={en:"en-US",ur:"ur-PK",ar:"ar-SA",bn:"bn-BD"}, RTL={en:0,ur:1,ar:1,bn:0};
+const LANGS=[{id:"en",label:"EN"},{id:"ur",label:"اردو"},{id:"ar",label:"عربي"},{id:"bn",label:"বাংলা"}];
+const REGIONS=[{id:"bd",name:"Bangladesh",lang:"bn"},{id:"me",name:"Middle East",lang:"ar"},{id:"sa",name:"South Asia",lang:"ur"},{id:"na",name:"North America",lang:"en"}];
+const REGION_NAME={bd:"Bangladesh",me:"Middle East",sa:"South Asia",na:"North America"};
+const LANG_NATIVE={en:"English",ur:"اردو",ar:"العربية",bn:"বাংলা"};
+const tel="tel:"+HELPLINE.replace(/\s/g,"");
 
-const T = {
-  en:{ startTitle:"Talk to LocomotePro", startSub:"Ask about tracking, pricing, trips or the GPS mandate. Just speak.",
-    start:"Start", tap:"Tap to speak", listening:"Listening…", thinking:"Thinking…", speaking:"Speaking…",
-    greeting:"Hi, I'm the LocomotePro voice assistant. How can I help you today?",
-    typePh:"Type your question…", micBlocked:"I couldn't reach the microphone. Allow mic access, or type below and I'll still reply out loud.",
-    error:"Sorry, I didn't catch that. Could you try again?",
-    callTitle:"Call our helpline", finalStep:"Final step", callHours:"Mon to Sat · 9am to 9pm", callNow:"Call now",
-    talkSpecialist:"Talk to a specialist", specialist:"Specialist", liveWith:"Live with a specialist", end:"End", keep:"Keep talking",
-    agentGreeting:"Hi, this is "+SPECIALIST+", a support specialist. I've got your chat, so tell me what you need and I'll sort it out.",
-    back:"You're back with the assistant." },
-  ur:{ startTitle:"LocomotePro سے بات کریں", startSub:"ٹریکنگ، قیمت، ٹرپ یا GPS مینڈیٹ کے بارے میں بولیں۔",
-    start:"شروع کریں", tap:"بولنے کے لیے دبائیں", listening:"سن رہا ہوں…", thinking:"سوچ رہا ہوں…", speaking:"بول رہا ہوں…",
-    greeting:"خوش آمدید، میں LocomotePro وائس اسسٹنٹ ہوں۔ میں آپ کی کیا مدد کر سکتا ہوں؟",
-    typePh:"اپنا سوال لکھیں…", micBlocked:"مائیک تک رسائی نہ ہو سکی۔ اجازت دیں یا نیچے لکھیں، میں پھر بھی بول کر جواب دوں گا۔",
-    error:"معذرت، سمجھ نہیں سکا۔ دوبارہ کوشش کریں؟",
-    callTitle:"ہماری ہیلپ لائن پر کال کریں", finalStep:"آخری مرحلہ", callHours:"پیر تا ہفتہ · 9 تا 9", callNow:"ابھی کال کریں",
-    talkSpecialist:"ماہر سے بات کریں", specialist:"ماہر", liveWith:"ماہر کے ساتھ لائیو", end:"ختم", keep:"بات جاری رکھیں",
-    agentGreeting:"السلام علیکم، میں "+SPECIALIST+" ہوں، سپورٹ اسپیشلسٹ۔ بتائیں کیا درکار ہے، میں حل کرتا ہوں۔",
-    back:"آپ دوبارہ اسسٹنٹ کے ساتھ ہیں۔" },
-  ar:{ startTitle:"تحدّث إلى LocomotePro", startSub:"اسأل عن التتبّع أو الأسعار أو الرحلات أو تفويض GPS. تكلّم فقط.",
-    start:"ابدأ", tap:"اضغط للتحدّث", listening:"أستمع…", thinking:"أفكّر…", speaking:"أتحدّث…",
-    greeting:"مرحبًا، أنا مساعد LocomotePro الصوتي. كيف يمكنني مساعدتك اليوم؟",
-    typePh:"اكتب سؤالك…", micBlocked:"تعذّر الوصول إلى الميكروفون. اسمح بالوصول أو اكتب أدناه وسأرد بصوت مسموع.",
-    error:"عذرًا، لم أفهم. حاول مرة أخرى؟",
-    callTitle:"اتصل بخط الدعم لدينا", finalStep:"الخطوة الأخيرة", callHours:"الاثنين إلى السبت · 9 إلى 9", callNow:"اتصل الآن",
-    talkSpecialist:"تحدّث إلى مختص", specialist:"مختص", liveWith:"مباشر مع مختص", end:"إنهاء", keep:"تابع الحديث",
-    agentGreeting:"مرحبًا، أنا "+SPECIALIST+"، أخصائي دعم. أخبرني بما تحتاجه وسأتولّاه.",
-    back:"لقد عدت إلى المساعد." },
-  bn:{ startTitle:"LocomotePro-এর সাথে কথা বলুন", startSub:"ট্র্যাকিং, দাম, ট্রিপ বা GPS ম্যান্ডেট নিয়ে বলুন। শুধু বলুন।",
-    start:"শুরু করুন", tap:"বলতে ট্যাপ করুন", listening:"শুনছি…", thinking:"ভাবছি…", speaking:"বলছি…",
-    greeting:"হ্যালো, আমি LocomotePro ভয়েস অ্যাসিস্ট্যান্ট। আজ কীভাবে সাহায্য করতে পারি?",
-    typePh:"আপনার প্রশ্ন লিখুন…", micBlocked:"মাইক্রোফোন অ্যাক্সেস করা গেল না। অনুমতি দিন বা নিচে লিখুন, আমি তবুও শব্দ করে উত্তর দেব।",
-    error:"দুঃখিত, বুঝতে পারিনি। আবার বলবেন?",
-    callTitle:"আমাদের হেল্পলাইনে কল করুন", finalStep:"চূড়ান্ত ধাপ", callHours:"সোম-শনি · ৯টা-৯টা", callNow:"এখনই কল করুন",
-    talkSpecialist:"বিশেষজ্ঞের সাথে কথা বলুন", specialist:"বিশেষজ্ঞ", liveWith:"বিশেষজ্ঞের সাথে লাইভ", end:"শেষ", keep:"চালিয়ে যান",
-    agentGreeting:"হ্যালো, আমি "+SPECIALIST+", একজন সাপোর্ট বিশেষজ্ঞ। বলুন কী দরকার, আমি সমাধান করে দিচ্ছি।",
-    back:"আপনি আবার অ্যাসিস্ট্যান্টের সাথে আছেন।" },
+const T={
+  en:{hi:"Hi {n},",intakeTitle:"Let's get started",intakeSub:"Tell us who you are so we can help and follow up if needed.",nameLabel:"Your name",namePh:"e.g. Ayesha Khan",contactLabel:"Phone or WhatsApp",contactPh:"+…",cont:"Continue",how:"How can we help?",choose:"Choose how you'd like to reach us. You can switch anytime.",
+    chat:"Chat with us",chatD:"Type your questions and get instant answers.",
+    talk:"Talk to us",talkD:"Speak to the voice assistant, hands-free.",
+    ladder:"AI first. Escalates to a specialist, then a call, whenever you need.",
+    guest:"Guest",signIn:"Sign in (demo)",signOut:"Sign out",
+    placeholder:"Ask about tracking, pricing, trips…",
+    greeting:"Hi, I'm the LocomotePro assistant. Ask about tracking, editions, pricing, trips or the GPS mandate.",
+    greetingAuth:"Welcome back, "+COMPANY+". Ask me to track a vehicle, create a trip, pull a report, or I'll bring in your account manager.",
+    suggest:["What does it cost?","GPS mandate?","Fleet or Home?"],
+    suggestAuth:["Where is DHK-4421?","Create a trip","Fuel efficiency report","Talk to my account manager"],
+    talkSpec:"Talk to a specialist",specialist:"Specialist",liveWith:"Live with a specialist",end:"End",keep:"Keep talking",
+    callTitle:"Call our helpline",finalStep:"Final step",callHours:"Mon to Sat · 9am to 9pm",callNow:"Call now",
+    agentGreeting:"Hi, this is "+SPECIALIST+", your account manager. I've read the chat, so tell me what you need and I'll sort it out.",
+    back:"You're back with the assistant.",
+    startTitle:"Talk to LocomotePro",startSub:"Ask about tracking, pricing, trips or the GPS mandate. Just speak.",
+    start:"Start",tap:"Tap to speak",listening:"Listening…",thinking:"Thinking…",speaking:"Speaking…",
+    voiceGreeting:"Hi, I'm the LocomotePro voice assistant. How can I help?",
+    callOption:"Talk to Agent",callOptionD:"IVR-style call. We'll ask your location and language, then connect you.",
+    askRegion:"Where are you calling from?",ivrIntro:"Choose your location so we route you to the right team.",askLang:"Which language would you prefer?",callName:"LocomotePro Support",connecting:"Connecting…",connected:"Connected",menuHint:"Choose a language, or just start talking.",startTalking:"Start talking",hangUp:"End call",talkBtn:"Talk",keypadLbl:"Keypad",locLabel:"Where are you based?",menuPrompt:"Welcome to LocomotePro. For English, press 1. For Urdu, press 2. For Arabic, press 3. For Bengali, press 4. Or just start speaking.",
+    typePh:"Type your question…",micBlocked:"I couldn't reach the microphone. Allow mic access, or type below.",
+    down:"Assistant is unavailable right now. Please check the server keys and try again.",
+    error:"Sorry, I didn't catch that. Could you try again?"},
+  ur:{hi:"خوش آمدید {n}،",intakeTitle:"آئیے شروع کریں",intakeSub:"اپنا تعارف دیں تاکہ ہم مدد اور ضرورت پر رابطہ کر سکیں۔",nameLabel:"آپ کا نام",namePh:"مثلاً عائشہ خان",contactLabel:"فون یا واٹس ایپ",contactPh:"+…",cont:"جاری رکھیں",how:"ہم کیسے مدد کریں؟",choose:"منتخب کریں کہ آپ کیسے رابطہ کرنا چاہتے ہیں۔",
+    chat:"چیٹ کریں",chatD:"اپنے سوال لکھیں، فوری جواب پائیں۔",talk:"بات کریں",talkD:"وائس اسسٹنٹ سے بولیں۔",
+    ladder:"پہلے AI، پھر ماہر، پھر کال۔",guest:"مہمان",signIn:"سائن اِن (ڈیمو)",signOut:"سائن آؤٹ",
+    placeholder:"ٹریکنگ، قیمت یا ٹرپ کے بارے میں پوچھیں…",
+    greeting:"خوش آمدید، میں LocomotePro اسسٹنٹ ہوں۔ ٹریکنگ، ایڈیشنز، قیمت، ٹرپ یا GPS مینڈیٹ کے بارے میں پوچھیں۔",
+    greetingAuth:"خوش آمدید، "+COMPANY+"۔ گاڑی ٹریک کروائیں، ٹرپ بنائیں، رپورٹ نکلوائیں یا اکاؤنٹ مینیجر کو شامل کریں۔",
+    suggest:["قیمت کیا ہے؟","GPS مینڈیٹ؟","Fleet یا Home؟"],
+    suggestAuth:["DHK-4421 کہاں ہے؟","نیا ٹرپ بنائیں","فیول رپورٹ","اکاؤنٹ مینیجر سے بات کریں"],
+    talkSpec:"ماہر سے بات کریں",specialist:"ماہر",liveWith:"ماہر کے ساتھ لائیو",end:"ختم",keep:"جاری رکھیں",
+    callTitle:"ہیلپ لائن پر کال کریں",finalStep:"آخری مرحلہ",callHours:"پیر تا ہفتہ · 9 تا 9",callNow:"ابھی کال کریں",
+    agentGreeting:"السلام علیکم، میں "+SPECIALIST+" ہوں، آپ کا اکاؤنٹ مینیجر۔ بتائیں کیا درکار ہے، میں حل کرتا ہوں۔",
+    back:"آپ دوبارہ اسسٹنٹ کے ساتھ ہیں۔",
+    startTitle:"LocomotePro سے بات کریں",startSub:"ٹریکنگ، قیمت یا GPS مینڈیٹ کے بارے میں بولیں۔",
+    start:"شروع کریں",tap:"بولنے کے لیے دبائیں",listening:"سن رہا ہوں…",thinking:"سوچ رہا ہوں…",speaking:"بول رہا ہوں…",
+    voiceGreeting:"خوش آمدید، میں LocomotePro وائس اسسٹنٹ ہوں۔ کیا مدد کروں؟",
+    callOption:"ایجنٹ سے بات کریں",callOptionD:"IVR کال۔ ہم آپ کا مقام اور زبان پوچھ کر منسلک کریں گے۔",
+    askRegion:"آپ کہاں سے کال کر رہے ہیں؟",ivrIntro:"اپنا مقام منتخب کریں تاکہ درست ٹیم سے رابطہ ہو۔",askLang:"آپ کون سی زبان ترجیح دیں گے؟",callName:"LocomotePro سپورٹ",connecting:"مل رہا ہے…",connected:"منسلک",menuHint:"زبان منتخب کریں، یا بولنا شروع کریں۔",startTalking:"بات شروع کریں",hangUp:"کال ختم کریں",talkBtn:"بولیں",keypadLbl:"کی پیڈ",locLabel:"آپ کہاں ہیں؟",menuPrompt:"LocomotePro میں خوش آمدید۔ انگریزی کے لیے 1 دبائیں، اردو کے لیے 2، عربی کے لیے 3، اور بنگلہ کے لیے 4۔ یا بولنا شروع کریں۔",
+    typePh:"اپنا سوال لکھیں…",micBlocked:"مائیک تک رسائی نہ ہو سکی۔ اجازت دیں یا نیچے لکھیں۔",
+    down:"اسسٹنٹ ابھی دستیاب نہیں۔ سرور کیز چیک کریں۔",error:"معذرت، سمجھ نہیں سکا۔ دوبارہ کوشش کریں؟"},
+  ar:{hi:"مرحبًا {n}،",intakeTitle:"لنبدأ",intakeSub:"عرّفنا بنفسك لنساعدك ونتابع معك عند الحاجة.",nameLabel:"اسمك",namePh:"مثال: عائشة خان",contactLabel:"هاتف أو واتساب",contactPh:"+…",cont:"متابعة",how:"كيف يمكننا مساعدتك؟",choose:"اختر طريقة التواصل. يمكنك التبديل في أي وقت.",
+    chat:"الدردشة",chatD:"اكتب أسئلتك واحصل على إجابات فورية.",talk:"تحدّث",talkD:"تحدّث إلى المساعد الصوتي.",
+    ladder:"الذكاء أولًا، ثم مختص، ثم اتصال.",guest:"زائر",signIn:"تسجيل الدخول (تجريبي)",signOut:"تسجيل الخروج",
+    placeholder:"اسأل عن التتبّع أو الأسعار أو الرحلات…",
+    greeting:"مرحبًا، أنا مساعد LocomotePro. اسأل عن التتبّع أو الإصدارات أو الأسعار أو الرحلات أو تفويض GPS.",
+    greetingAuth:"أهلًا بعودتك، "+COMPANY+". اطلب تتبّع مركبة أو إنشاء رحلة أو تقريرًا، أو سأُشرِك مدير حسابك.",
+    suggest:["كم التكلفة؟","تفويض GPS؟","Fleet أم Home؟"],
+    suggestAuth:["أين DHK-4421؟","أنشئ رحلة","تقرير الوقود","تحدث إلى مدير حسابي"],
+    talkSpec:"تحدّث إلى مختص",specialist:"مختص",liveWith:"مباشر مع مختص",end:"إنهاء",keep:"تابع الحديث",
+    callTitle:"اتصل بخط الدعم",finalStep:"الخطوة الأخيرة",callHours:"الاثنين إلى السبت · 9 إلى 9",callNow:"اتصل الآن",
+    agentGreeting:"مرحبًا، أنا "+SPECIALIST+"، مدير حسابك. أخبرني بما تحتاجه وسأتولّاه.",
+    back:"لقد عدت إلى المساعد.",
+    startTitle:"تحدّث إلى LocomotePro",startSub:"اسأل عن التتبّع أو الأسعار أو تفويض GPS. تكلّم فقط.",
+    start:"ابدأ",tap:"اضغط للتحدّث",listening:"أستمع…",thinking:"أفكّر…",speaking:"أتحدّث…",
+    voiceGreeting:"مرحبًا، أنا مساعد LocomotePro الصوتي. كيف أساعدك؟",
+    callOption:"تحدّث إلى وكيل",callOptionD:"مكالمة على نمط IVR. سنسأل عن موقعك ولغتك ثم نوصلك.",
+    askRegion:"من أين تتصل؟",ivrIntro:"اختر موقعك لتوجيهك إلى الفريق المناسب.",askLang:"ما اللغة التي تفضّلها؟",callName:"دعم LocomotePro",connecting:"جارٍ الاتصال…",connected:"متصل",menuHint:"اختر لغة، أو ابدأ بالتحدث.",startTalking:"ابدأ التحدث",hangUp:"إنهاء المكالمة",talkBtn:"تحدّث",keypadLbl:"لوحة الأرقام",locLabel:"أين مقرك؟",menuPrompt:"مرحبًا بك في LocomotePro. للإنجليزية اضغط 1، وللأردية اضغط 2، وللعربية اضغط 3، وللبنغالية اضغط 4. أو ابدأ بالتحدث.",
+    typePh:"اكتب سؤالك…",micBlocked:"تعذّر الوصول إلى الميكروفون. اسمح بالوصول أو اكتب أدناه.",
+    down:"المساعد غير متاح الآن. تحقق من مفاتيح الخادم.",error:"عذرًا، لم أفهم. حاول مرة أخرى؟"},
+  bn:{hi:"হ্যালো {n},",intakeTitle:"চলুন শুরু করি",intakeSub:"আপনার পরিচয় দিন যাতে আমরা সাহায্য ও প্রয়োজনে ফলো-আপ করতে পারি।",nameLabel:"আপনার নাম",namePh:"যেমন আয়েশা খান",contactLabel:"ফোন বা হোয়াটসঅ্যাপ",contactPh:"+…",cont:"চালিয়ে যান",how:"কীভাবে সাহায্য করতে পারি?",choose:"কীভাবে যোগাযোগ করবেন বেছে নিন। যেকোনো সময় বদলাতে পারেন।",
+    chat:"চ্যাট করুন",chatD:"প্রশ্ন লিখুন, তাৎক্ষণিক উত্তর পান।",talk:"কথা বলুন",talkD:"ভয়েস অ্যাসিস্ট্যান্টের সাথে বলুন।",
+    ladder:"প্রথমে এআই, তারপর বিশেষজ্ঞ, তারপর কল।",guest:"অতিথি",signIn:"সাইন ইন (ডেমো)",signOut:"সাইন আউট",
+    placeholder:"ট্র্যাকিং, দাম বা ট্রিপ নিয়ে জিজ্ঞাসা করুন…",
+    greeting:"হ্যালো, আমি LocomotePro অ্যাসিস্ট্যান্ট। ট্র্যাকিং, এডিশন, দাম, ট্রিপ বা GPS ম্যান্ডেট নিয়ে জিজ্ঞাসা করুন।",
+    greetingAuth:"আবার স্বাগতম, "+COMPANY+"। গাড়ি ট্র্যাক করতে, ট্রিপ তৈরি করতে, রিপোর্ট আনতে বলুন, নয়তো অ্যাকাউন্ট ম্যানেজারকে যুক্ত করব।",
+    suggest:["খরচ কত?","GPS ম্যান্ডেট?","Fleet নাকি Home?"],
+    suggestAuth:["DHK-4421 কোথায়?","নতুন ট্রিপ তৈরি করুন","ফুয়েল রিপোর্ট","অ্যাকাউন্ট ম্যানেজারের সাথে কথা বলুন"],
+    talkSpec:"বিশেষজ্ঞের সাথে কথা বলুন",specialist:"বিশেষজ্ঞ",liveWith:"বিশেষজ্ঞের সাথে লাইভ",end:"শেষ",keep:"চালিয়ে যান",
+    callTitle:"হেল্পলাইনে কল করুন",finalStep:"চূড়ান্ত ধাপ",callHours:"সোম-শনি · ৯টা-৯টা",callNow:"এখনই কল করুন",
+    agentGreeting:"হ্যালো, আমি "+SPECIALIST+", আপনার অ্যাকাউন্ট ম্যানেজার। বলুন কী দরকার, আমি সমাধান করে দিচ্ছি।",
+    back:"আপনি আবার অ্যাসিস্ট্যান্টের সাথে আছেন।",
+    startTitle:"LocomotePro-এর সাথে কথা বলুন",startSub:"ট্র্যাকিং, দাম বা GPS ম্যান্ডেট নিয়ে বলুন। শুধু বলুন।",
+    start:"শুরু করুন",tap:"বলতে ট্যাপ করুন",listening:"শুনছি…",thinking:"ভাবছি…",speaking:"বলছি…",
+    voiceGreeting:"হ্যালো, আমি LocomotePro ভয়েস অ্যাসিস্ট্যান্ট। কীভাবে সাহায্য করতে পারি?",
+    callOption:"এজেন্টের সাথে কথা বলুন",callOptionD:"IVR কল। আমরা আপনার অবস্থান ও ভাষা জিজ্ঞাসা করে সংযুক্ত করব।",
+    askRegion:"আপনি কোথা থেকে কল করছেন?",ivrIntro:"সঠিক টিমে যুক্ত করতে আপনার অবস্থান বেছে নিন।",askLang:"আপনি কোন ভাষা পছন্দ করবেন?",callName:"LocomotePro সাপোর্ট",connecting:"সংযোগ হচ্ছে…",connected:"সংযুক্ত",menuHint:"একটি ভাষা বেছে নিন, অথবা কথা বলা শুরু করুন।",startTalking:"কথা শুরু করুন",hangUp:"কল শেষ করুন",talkBtn:"বলুন",keypadLbl:"কীপ্যাড",locLabel:"আপনি কোথায় আছেন?",menuPrompt:"LocomotePro-তে স্বাগতম। English-এর জন্য 1 চাপুন, Urdu-এর জন্য 2, Arabic-এর জন্য 3, Bengali-এর জন্য 4। অথবা কথা বলা শুরু করুন।",
+    typePh:"আপনার প্রশ্ন লিখুন…",micBlocked:"মাইক্রোফোন অ্যাক্সেস করা গেল না। অনুমতি দিন বা নিচে লিখুন।",
+    down:"অ্যাসিস্ট্যান্ট এখন অনুপলব্ধ। সার্ভার কী পরীক্ষা করুন।",error:"দুঃখিত, বুঝতে পারিনি। আবার বলবেন?"},
 };
 
-let lang = "en";
-let started = false;
-let mode = "ai";              // ai | agent
-let uiMode = "idle";          // idle | listening | thinking | speaking
-let messages = [];            // {role:'user'|'assistant'|'agent', text}
-let escalated = null;
-let currentAudio = null;
-const tel = "tel:" + HELPLINE.replace(/\s/g,"");
+let lang="en", screen="intake";
+let userName="", userContact="", userRegion="";
+// chat state
+let cMsg=[], cMode="ai", authed=false, cEsc=null;
+// voice state
+let vPhase="dialing", vRegion="", vMsg=[], vMode="ai", vUI="idle", vEsc=null, vAudio=null, callStart=0, callTimer=null, vInterim="";
 
-const body = document.getElementById("body");
+const bodyEl=document.getElementById("body");
+const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const dir=()=>RTL[lang]?"rtl":"ltr";
+const pgreet=g=>userName?(T[lang].hi.replace("{n}",userName)+" "+g):g;
 
-function renderLangs(){
-  const el = document.getElementById("langs");
-  el.innerHTML = "";
-  LANGS.forEach(l=>{
-    const b=document.createElement("button");
-    b.textContent=l.label; if(l.id===lang) b.className="on";
-    b.onclick=()=>{ lang=l.id; renderLangs(); render(); };
-    el.appendChild(b);
-  });
+function renderHead(){
+  const b=document.getElementById("brand");
+  const backBtn = screen!=="intake" ? '<button class="back" id="backBtn">‹</button>' : '';
+  b.innerHTML = backBtn + '<div class="logo">🚚</div><div><div class="title">LocomotePro</div><div class="sub">Support · Wahyd LOS</div></div>';
+  if(screen!=="intake"){ const bb=document.getElementById("backBtn"); bb.onclick=()=>{ stopAudio(); screen=(screen==="launcher"?"intake":"launcher"); render(); }; }
+  const el=document.getElementById("langs");
+  el.innerHTML="";
+  if(screen==="chat"){
+    const s=document.createElement("button");
+    s.className = authed?"signout":"signin"; s.textContent = authed?T[lang].signOut:T[lang].signIn;
+    s.onclick=()=>{ authed=!authed; cMsg=[{role:"assistant",text:authed?T[lang].greetingAuth:pgreet(T[lang].greeting)}]; cMode="ai"; cEsc=null; render(); };
+    el.appendChild(s);
+  }
+  LANGS.forEach(l=>{ const btn=document.createElement("button"); btn.textContent=l.label; if(l.id===lang)btn.className="on";
+    btn.onclick=()=>{ lang=l.id; render(); }; el.appendChild(btn); });
 }
 
-function render(){
+function render(){ renderHead(); if(screen==="intake")renderIntake(); else if(screen==="launcher")renderLauncher(); else if(screen==="chat")renderChat(); else renderVoice(); }
+
+function renderIntake(){
   const t=T[lang];
-  if(!started){
-    body.innerHTML =
-      '<div class="center" dir="'+(RTL[lang]?"rtl":"ltr")+'">'+
-        orb("idle")+
-        '<div style="font-size:20px;font-weight:600;color:var(--text);margin:26px 0 8px">'+t.startTitle+'</div>'+
-        '<div style="font-size:13.5px;color:var(--muted);line-height:1.55;margin-bottom:26px;max-width:300px">'+t.startSub+'</div>'+
-        '<button class="btn" id="startBtn">🎙 '+t.start+'</button>'+
-      '</div>';
-    document.getElementById("startBtn").onclick=start;
-    return;
-  }
-  const dir = RTL[lang]?"rtl":"ltr";
-  body.innerHTML =
-    '<div class="scroll" id="scroll" dir="'+dir+'"></div>'+
-    (escalated ? escBlock() : "")+
-    '<div class="foot">'+
-      '<div class="orb-wrap" id="orbTap">'+orb(uiMode)+'</div>'+
-      '<div class="status '+uiMode+'" id="status">'+statusText()+'</div>'+
-      '<div class="controls">'+
-        '<div class="mini" id="kbBtn">⌨️</div>'+
-        '<button class="mic '+(uiMode==="listening"?"on":uiMode==="speaking"?"sp":"")+'" id="micBtn">🎙</button>'+
-        '<a class="mini" href="'+tel+'">📞</a>'+
-      '</div>'+
-      '<div class="type hidden" id="typeRow" dir="'+dir+'">'+
-        '<input id="typeInput" placeholder="'+t.typePh+'" />'+
-        '<button id="typeSend">➤</button>'+
-      '</div>'+
-    '</div>';
-  document.getElementById("micBtn").onclick=onMic;
-  document.getElementById("orbTap").onclick=onMic;
-  document.getElementById("kbBtn").onclick=()=>document.getElementById("typeRow").classList.toggle("hidden");
-  document.getElementById("typeSend").onclick=sendTyped;
-  document.getElementById("typeInput").addEventListener("keydown",e=>{ if(e.key==="Enter") sendTyped(); });
-  if(escalated){
-    const s=document.getElementById("specBtn"); if(s) s.onclick=startSpecialist;
-    const k=document.getElementById("keepBtn"); if(k) k.onclick=()=>{ escalated=null; render(); };
-  }
-  const endB=document.getElementById("endBtn"); if(endB) endB.onclick=endSpecialist;
-  paint();
+  bodyEl.innerHTML='<div class="center" dir="'+dir()+'" style="overflow-y:auto">'+
+    '<div class="h1">'+t.intakeTitle+'</div><div class="p">'+t.intakeSub+'</div>'+
+    '<label class="fl">'+t.nameLabel+' <span style="color:var(--cyan)">*</span></label>'+
+    '<div class="inp" style="margin-bottom:12px"><input id="inName" placeholder="'+t.namePh+'" value="'+esc(userName)+'"/></div>'+
+    '<label class="fl">'+t.contactLabel+'</label>'+
+    '<div class="inp" style="margin-bottom:12px"><input id="inContact" placeholder="'+t.contactPh+'" value="'+esc(userContact)+'"/></div>'+
+    '<label class="fl">'+t.locLabel+' <span style="color:var(--cyan)">*</span></label>'+
+    '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">'+
+      REGIONS.map(r=>'<button class="opt" data-r="'+r.id+'" style="margin-bottom:0;padding:10px 13px"><div class="ic" style="width:32px;height:32px;font-size:15px;background:rgba(45,212,224,.10);border:1px solid var(--line)">📍</div><div style="flex:1"><div class="t" style="font-size:13.5px">'+r.name+'</div></div>'+(userRegion===r.id?'<div style="color:var(--green)">●</div>':'<div style="color:var(--muted)">›</div>')+'</button>').join("")+
+    '</div>'+
+    '<button class="btn" id="inGo" style="width:100%">'+t.cont+'</button></div>';
+  const nameEl=document.getElementById("inName"), contactEl=document.getElementById("inContact"), goEl=document.getElementById("inGo");
+  const upd=()=>{ const ok=nameEl.value.trim()&&userRegion; goEl.disabled=!ok; goEl.style.opacity=ok?"1":".5"; };
+  nameEl.addEventListener("input",e=>{ userName=e.target.value; upd(); });
+  contactEl.addEventListener("input",e=>userContact=e.target.value);
+  bodyEl.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{ userName=nameEl.value; userContact=contactEl.value; userRegion=b.dataset.r; renderIntake(); });
+  upd();
+  const go=()=>{ if(!(nameEl.value.trim()&&userRegion))return; userName=nameEl.value.trim(); userContact=(contactEl.value||"").trim(); screen="launcher"; render(); };
+  goEl.onclick=go;
+  nameEl.addEventListener("keydown",e=>{ if(e.key==="Enter")go(); });
 }
 
-function orb(m){
-  const rings = (m==="listening"||m==="speaking") ? '<span class="ring"></span><span class="ring b"></span><span class="ring c"></span>' : "";
-  const inner = m==="thinking" ? "⏳" : m==="speaking" ? "🔊" : "🎙";
-  return '<div class="orb '+m+'">'+rings+'<div class="core">'+inner+'</div></div>';
-}
-function statusText(){ const t=T[lang]; return uiMode==="listening"?t.listening:uiMode==="thinking"?t.thinking:uiMode==="speaking"?t.speaking:t.tap; }
-
-function paint(){
-  const sc=document.getElementById("scroll"); if(!sc) return;
+function renderLauncher(){
   const t=T[lang];
-  let html="";
-  if(mode==="agent"){
-    html+='<div class="banner live"><span>🟢 '+t.liveWith+'</span><button id="endBtn">'+t.end+'</button></div>';
-  }
-  messages.forEach(m=>{
-    if(m.role==="user") html+='<div class="msg u"><div class="b"><span>'+esc(m.text)+'</span></div></div>';
-    else if(m.role==="agent") html+='<div class="msg g"><div class="b"><span class="dot">🎧</span><span><span class="who">'+SPECIALIST+' · '+t.specialist+'</span>'+esc(m.text)+'</span></div></div>';
-    else html+='<div class="msg a"><div class="b"><span class="dot">🔊</span><span>'+esc(m.text)+'</span></div></div>';
+  bodyEl.innerHTML='<div class="center" dir="'+dir()+'">'+
+    '<div class="h1">'+t.how+'</div><div class="p">'+t.choose+'</div>'+
+    '<button class="opt" id="optChat"><div class="ic" style="background:rgba(45,212,224,.12);border:1px solid rgba(45,212,224,.35)">💬</div><div style="flex:1"><div class="t">'+t.chat+'</div><div class="d">'+t.chatD+'</div></div><div style="color:var(--muted)">›</div></button>'+
+    '<button class="opt" id="optVoice"><div class="ic" style="background:rgba(43,209,126,.12);border:1px solid rgba(43,209,126,.35)">📞</div><div style="flex:1"><div class="t">'+t.callOption+'</div><div class="d">'+t.callOptionD+'</div></div><div style="color:var(--muted)">›</div></button>'+
+    '<div class="note">📞 '+t.ladder+'</div></div>';
+  document.getElementById("optChat").onclick=()=>{ screen="chat"; if(!cMsg.length)cMsg=[{role:"assistant",text:authed?T[lang].greetingAuth:pgreet(T[lang].greeting)}]; render(); };
+  document.getElementById("optVoice").onclick=()=>{ screen="voice"; vRegion=userRegion; lang=(REGIONS.find(r=>r.id===userRegion)||{}).lang||lang; vPhase="dialing"; vMsg=[]; vMode="ai"; vEsc=null; vUI="idle"; callStart=0; vInterim=""; render(); setTimeout(()=>{ if(vPhase==="dialing"){ vPhase="menu"; render(); playMenu(); } },2600); };
+}
+
+/* ---------- CHAT ---------- */
+function renderChat(){
+  const t=T[lang];
+  bodyEl.innerHTML='<div class="scroll" id="scroll" dir="'+dir()+'"></div>'+
+    '<div class="foot"><div class="inp" dir="'+dir()+'"><input id="cin" placeholder="'+t.placeholder+'"/><button class="send" id="csend">➤</button></div></div>';
+  document.getElementById("csend").onclick=cSend;
+  const inp=document.getElementById("cin"); inp.addEventListener("keydown",e=>{ if(e.key==="Enter")cSend(); });
+  paintChat();
+}
+function paintChat(){
+  const sc=document.getElementById("scroll"); if(!sc)return; const t=T[lang];
+  let h="";
+  if(cMode==="agent") h+='<div class="banner live"><span>🟢 '+t.liveWith+'</span><button id="cEnd">'+t.end+'</button></div>';
+  cMsg.forEach(m=>{
+    if(m.role==="user") h+='<div class="msg u"><div class="b">'+esc(m.text)+'</div></div>';
+    else if(m.role==="agent") h+='<div class="msg g"><div class="b">🎧 <span><span class="who">'+SPECIALIST+' · '+t.specialist+'</span>'+esc(m.text)+'</span></div></div>';
+    else if(m.role==="down") h+='<div class="banner warn">'+esc(m.text)+'</div>';
+    else h+='<div class="msg a"><div class="b">'+esc(m.text)+'</div></div>';
   });
-  sc.innerHTML=html;
-  const endB=document.getElementById("endBtn"); if(endB) endB.onclick=endSpecialist;
+  if(cEsc) h+=escBlock("c");
+  if(cMode==="ai" && !cMsg.some(m=>m.role==="user")){
+    const chips=authed?t.suggestAuth:t.suggest;
+    h+='<div class="chips">'+chips.map(s=>'<button class="chip" data-s="'+esc(s)+'">'+esc(s)+' ›</button>').join("")+'</div>';
+  }
+  sc.innerHTML=h;
+  const e=document.getElementById("cEnd"); if(e)e.onclick=()=>{ cMode="ai"; cMsg.push({role:"assistant",text:t.back}); render(); };
+  wireEsc("c");
+  sc.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{ cAsk(b.dataset.s); });
   sc.scrollTop=sc.scrollHeight;
 }
-function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function cSend(){ const i=document.getElementById("cin"); const v=(i.value||"").trim(); if(!v)return; i.value=""; cAsk(v); }
+async function cAsk(text){
+  cMsg.push({role:"user",text}); cEsc=null; paintChat();
+  cMsg.push({role:"assistant",text:"…"}); const idx=cMsg.length-1; paintChat();
+  const api=cMsg.filter(m=>m.role==="user"||m.role==="assistant"||m.role==="agent").filter(m=>m.text!=="…").map(m=>({role:m.role==="user"?"user":"assistant",content:m.text}));
+  try{
+    const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:api,lang,mode:cMode,authed,name:userName})});
+    const d=await r.json();
+    if(d.error){ cMsg.splice(idx,1); cMsg.push({role:"down",text:T[lang].down}); paintChat(); return; }
+    const reply=(d.reply||"").trim()||T[lang].error;
+    cMsg[idx]={role:cMode==="agent"?"agent":"assistant",text:reply};
+    if(cMode==="ai" && d.escalate && d.reason && d.reason!=="none") cEsc=d.reason;
+    paintChat();
+  }catch(e){ cMsg.splice(idx,1); cMsg.push({role:"down",text:T[lang].down}); paintChat(); }
+}
 
+/* ---------- shared escalation card ---------- */
 function escBlock(){
   const t=T[lang];
-  return '<div class="esc" dir="'+(RTL[lang]?"rtl":"ltr")+'">'+
-    '<div class="top"><span>🎧 '+t.callTitle+'</span><span class="tag">'+t.finalStep+'</span></div>'+
-    '<div class="pad">'+
-      '<button class="full" id="specBtn">🎧 '+t.talkSpecialist+'</button>'+
-      '<a class="num" href="'+tel+'"><b dir="ltr">'+HELPLINE+'</b><span>'+t.callHours+'</span></a>'+
-      '<div class="two"><a class="call" href="'+tel+'">📞 '+t.callNow+'</a>'+
-      '<button class="keep" id="keepBtn">'+t.keep+'</button></div>'+
-    '</div></div>';
+  return '<div class="esc" dir="'+dir()+'"><div class="top"><span>🎧 '+t.callTitle+'</span><span class="tag">'+t.finalStep+'</span></div>'+
+    '<div class="pad"><button class="full" id="specBtn">🎧 '+t.talkSpec+'</button>'+
+    '<a class="num" href="'+tel+'"><b dir="ltr">'+HELPLINE+'</b><span>'+t.callHours+'</span></a>'+
+    '<div class="two"><a class="call" href="'+tel+'">📞 '+t.callNow+'</a><button class="keep" id="keepBtn">'+t.keep+'</button></div></div></div>';
+}
+function wireEsc(which){
+  const s=document.getElementById("specBtn"), k=document.getElementById("keepBtn");
+  if(s)s.onclick=()=>{ if(which==="c"){ cEsc=null; cMode="agent"; cMsg.push({role:"agent",text:T[lang].agentGreeting}); paintChat(); }
+    else { vEsc=null; vMode="agent"; const g=T[lang].agentGreeting; vMsg.push({role:"agent",text:g}); render(); (async()=>{ await speak(g); autoListen(); })(); } };
+  if(k)k.onclick=()=>{ if(which==="c"){ cEsc=null; paintChat(); } else { vEsc=null; render(); autoListen(); } };
 }
 
-function setMode(m){ uiMode=m; const s=document.getElementById("status"); if(s){ s.className="status "+m; s.textContent=statusText(); }
-  const mic=document.getElementById("micBtn"); if(mic){ mic.className="mic "+(m==="listening"?"on":m==="speaking"?"sp":""); }
-  const ow=document.getElementById("orbTap"); if(ow){ ow.innerHTML=orb(m); } }
-
-async function start(){
-  started=true;
-  try{ if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ const s=await navigator.mediaDevices.getUserMedia({audio:true}); s.getTracks().forEach(x=>x.stop()); } }
-  catch(e){ /* mic denied; text fallback still works */ }
-  messages.push({role:"assistant",text:T[lang].greeting});
-  render();
-  speak(T[lang].greeting);
-}
-
-function onMic(){
-  if(uiMode==="listening"){ stopListen(); setMode("idle"); return; }
-  if(uiMode==="speaking"){ stopAudio(); setMode("idle"); listen(); return; }
-  listen();
-}
-
-let rec=null;
-function listen(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){ document.getElementById("typeRow").classList.remove("hidden"); return; }
-  stopAudio();
-  rec=new SR(); rec.lang=CODE[lang]; rec.interimResults=true; rec.continuous=false;
-  let final="";
-  rec.onresult=e=>{ for(let i=e.resultIndex;i<e.results.length;i++){ if(e.results[i].isFinal) final+=e.results[i][0].transcript; } };
-  rec.onerror=ev=>{ setMode("idle"); if(ev.error==="not-allowed"||ev.error==="service-not-allowed"){ banner(T[lang].micBlocked); document.getElementById("typeRow").classList.remove("hidden"); } };
-  rec.onend=()=>{ const said=final.trim(); if(said) ask(said); else if(uiMode==="listening") setMode("idle"); };
-  setMode("listening");
-  try{ rec.start(); }catch(e){ setMode("idle"); }
-}
-function stopListen(){ try{ rec&&rec.stop(); }catch(e){} }
-
-function banner(text){
-  const sc=document.getElementById("scroll"); if(!sc) return;
-  const d=document.createElement("div"); d.className="banner warn"; d.textContent=text; sc.prepend(d);
-}
-
-function sendTyped(){
-  const inp=document.getElementById("typeInput"); const v=inp.value.trim(); if(!v) return; inp.value=""; ask(v);
-}
-
-async function ask(text){
-  messages.push({role:"user",text}); escalated=null; render(); setMode("thinking");
-  const api = messages.map(m=>({role:(m.role==="user")?"user":"assistant",content:m.text}));
-  try{
-    const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({messages:api,lang,mode})});
-    const data=await r.json();
-    const reply=(data.reply||"").trim()||T[lang].error;
-    messages.push({role:mode==="agent"?"agent":"assistant",text:reply});
-    render();
-    await speak(reply);
-    if(mode==="ai" && data.escalate && data.reason && data.reason!=="none"){ escalated=data.reason; render(); }
-  }catch(e){
-    messages.push({role:"assistant",text:T[lang].error}); render(); speak(T[lang].error);
+/* ---------- VOICE ---------- */
+function renderVoice(){
+  const t=T[lang];
+  if(vPhase==="dialing"){
+    bodyEl.innerHTML='<div class="center" dir="'+dir()+'" style="align-items:center;text-align:center">'+
+      '<div class="avatar rng">🎧</div>'+
+      '<div class="calltxt">'+t.callName+'</div><div class="callsub">'+t.connecting+'</div>'+
+      '<div class="dots3"><span></span><span></span><span></span></div>'+
+      '<div style="margin-top:30px"><button class="hangpill" id="vhang">'+t.hangUp+'</button></div></div>';
+    document.getElementById("vhang").onclick=endCall;
+    return;
   }
+  if(vPhase==="menu"){
+    bodyEl.innerHTML='<div class="center" dir="'+dir()+'" style="align-items:stretch;overflow-y:auto">'+
+      '<div style="text-align:center"><div class="avatar">🎧</div><div class="calltxt">'+t.callName+'</div><div class="callsub">🟢 '+t.connected+'</div></div>'+
+      '<div class="p" style="text-align:center;margin-top:14px">'+t.menuHint+'</div>'+
+      '<div class="keypad">'+LANGS.map((l,i)=>'<button class="key '+(l.id===lang?"on":"")+'" data-l="'+l.id+'"><span class="num">'+(i+1)+'</span><span>'+LANG_NATIVE[l.id]+'</span></button>').join("")+'</div>'+
+      '<button class="talk" id="vtalk">'+t.startTalking+'</button>'+
+      '<div style="text-align:center;margin-top:14px"><button class="hangpill" id="vhang">'+t.hangUp+'</button></div></div>';
+    bodyEl.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{ lang=b.dataset.l; vPhase="call"; render(); vBegin(); });
+    document.getElementById("vtalk").onclick=()=>{ vPhase="call"; render(); vBegin(); };
+    document.getElementById("vhang").onclick=endCall;
+    return;
+  }
+  bodyEl.innerHTML='<div class="callscreen" dir="'+dir()+'">'+
+    '<div class="calltop">'+
+      '<div class="calltimer" id="ctimer">00:00</div>'+
+      '<div class="cav '+vUI+'" id="cav"><span class="ring"></span><span class="ring b"></span><span class="ring c"></span><div class="cavcore">🎧</div></div>'+
+      '<div class="cname">'+(vMode==="agent"?SPECIALIST:t.callName)+'</div>'+
+      '<div class="cstatus '+vUI+'" id="cstatus">'+vStatus()+'</div>'+
+      '<div class="caption" id="ccap"></div>'+
+    '</div>'+
+    (vEsc?'<div style="padding:0 12px">'+escBlock()+'</div>':'')+
+    '<div class="type hidden" id="vtype" dir="'+dir()+'" style="margin:0 16px 10px"><input id="vin" placeholder="'+t.typePh+'"/><button id="vsend">➤</button></div>'+
+    '<div class="callbar">'+
+      '<button class="cbtn" id="cmic"><div class="cico" id="cmicico">🎙</div><div class="clbl">'+t.talkBtn+'</div></button>'+
+      '<div class="cendwrap"><button class="cend" id="vhang">📞</button><div class="clbl">'+t.hangUp+'</div></div>'+
+      '<button class="cbtn" id="ckey"><div class="cico">⌨️</div><div class="clbl">'+t.keypadLbl+'</div></button>'+
+    '</div></div>';
+  document.getElementById("cav").onclick=vMicTap;
+  document.getElementById("cmic").onclick=vMicTap;
+  document.getElementById("ckey").onclick=()=>{ stopAudio(); vStop(); vPhase="menu"; render(); };
+  document.getElementById("vhang").onclick=endCall;
+  document.getElementById("vsend").onclick=vTyped;
+  document.getElementById("vin").addEventListener("keydown",e=>{ if(e.key==="Enter")vTyped(); });
+  wireEsc("v");
+  startTimer();
+  paintVoice();
 }
-
-function startSpecialist(){
-  escalated=null; mode="agent";
-  const g=T[lang].agentGreeting;
-  messages.push({role:"agent",text:g}); render(); speak(g);
+function playMenu(){ speak(T[lang].menuPrompt); }
+function startTimer(){ if(!callStart)callStart=Date.now(); if(callTimer)clearInterval(callTimer); callTimer=setInterval(()=>{ const el=document.getElementById("ctimer"); if(!el){ clearInterval(callTimer); callTimer=null; return; } const s=Math.floor((Date.now()-callStart)/1000); el.textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); },1000); }
+function autoListen(){ if(vPhase==="call") setTimeout(()=>{ if(vPhase==="call"&&vUI==="idle"&&!vEsc)vListen(); },350); }
+function endCall(){ stopAudio(); vStop(); if(callTimer){ clearInterval(callTimer); callTimer=null; } callStart=0; vMsg=[]; vMode="ai"; vEsc=null; vUI="idle"; vInterim=""; screen="launcher"; vPhase="dialing"; render(); }
+function paintCap(){ const cap=document.getElementById("ccap"); if(!cap)return; let line=""; if(vUI==="listening"&&vInterim)line=vInterim; else { for(let i=vMsg.length-1;i>=0;i--){ const r=vMsg[i].role; if(r==="assistant"||r==="agent"||r==="down"){ line=vMsg[i].text; break; } } } cap.textContent=line; }
+function paintVoice(){ paintCap(); }
+function orb(m){ const rings=(m==="listening"||m==="speaking")?'<span class="ring"></span><span class="ring b"></span><span class="ring c"></span>':""; const i=m==="thinking"?"⏳":m==="speaking"?"🔊":"🎙"; return '<div class="orb '+m+'">'+rings+'<div class="core">'+i+'</div></div>'; }
+function vStatus(){ const t=T[lang]; return vUI==="listening"?t.listening:vUI==="thinking"?t.thinking:vUI==="speaking"?t.speaking:t.tap; }
+function setVUI(m){ vUI=m;
+  const cs=document.getElementById("cstatus"); if(cs){ cs.className="cstatus "+m; cs.textContent=vStatus(); }
+  const cav=document.getElementById("cav"); if(cav) cav.className="cav "+m;
+  const mi=document.getElementById("cmicico"); if(mi){ mi.parentElement.className="cico "+(m==="listening"?"on":""); }
+  paintCap();
 }
-function endSpecialist(){
-  mode="ai"; messages.push({role:"assistant",text:T[lang].back}); render();
+async function vBegin(){ try{ if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ const s=await navigator.mediaDevices.getUserMedia({audio:true}); s.getTracks().forEach(x=>x.stop()); } }catch(e){} const g=pgreet(T[lang].voiceGreeting); vMsg.push({role:"assistant",text:g}); paintCap(); await speak(g); autoListen(); }
+function vMicTap(){ if(vUI==="listening"){ vStop(); setVUI("idle"); return; } if(vUI==="speaking"){ stopAudio(); setVUI("idle"); vListen(); return; } vListen(); }
+let rec=null;
+function vListen(){ const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){ const tt=document.getElementById("vtype"); if(tt)tt.classList.remove("hidden"); return; } stopAudio(); rec=new SR(); rec.lang=CODE[lang]; rec.interimResults=true; rec.continuous=false; let fin=""; rec.onresult=e=>{ let itr=""; for(let i=e.resultIndex;i<e.results.length;i++){ if(e.results[i].isFinal)fin+=e.results[i][0].transcript; else itr+=e.results[i][0].transcript; } vInterim=itr; paintCap(); }; rec.onerror=ev=>{ setVUI("idle"); if(ev.error==="not-allowed"||ev.error==="service-not-allowed"){ vMsg.push({role:"down",text:T[lang].micBlocked}); paintCap(); const tt=document.getElementById("vtype"); if(tt)tt.classList.remove("hidden"); } }; rec.onend=()=>{ const s=fin.trim(); vInterim=""; if(s)vAsk(s); else if(vUI==="listening")setVUI("idle"); }; setVUI("listening"); try{ rec.start(); }catch(e){ setVUI("idle"); } }
+function vStop(){ try{ rec&&rec.stop(); }catch(e){} }
+function vTyped(){ const i=document.getElementById("vin"); const v=(i.value||"").trim(); if(!v)return; i.value=""; vAsk(v); }
+async function vAsk(text){
+  vInterim=""; vMsg.push({role:"user",text}); vEsc=null; setVUI("thinking");
+  const api=vMsg.filter(m=>m.role==="user"||m.role==="assistant"||m.role==="agent").map(m=>({role:m.role==="user"?"user":"assistant",content:m.text}));
+  try{
+    const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:api,lang,mode:vMode,region:vRegion,name:userName})});
+    const d=await r.json();
+    if(d.error){ vMsg.push({role:"down",text:T[lang].down}); setVUI("idle"); return; }
+    const reply=(d.reply||"").trim()||T[lang].error;
+    vMsg.push({role:vMode==="agent"?"agent":"assistant",text:reply});
+    await speak(reply);
+    if(vMode==="ai" && d.escalate && d.reason && d.reason!=="none"){ vEsc=d.reason; render(); }
+    else autoListen();
+  }catch(e){ vMsg.push({role:"down",text:T[lang].down}); setVUI("idle"); }
 }
-
-function stopAudio(){ if(currentAudio){ try{ currentAudio.pause(); }catch(e){} currentAudio=null; } if(window.speechSynthesis) try{ speechSynthesis.cancel(); }catch(e){} }
-
+function stopAudio(){ if(vAudio){ try{ vAudio.pause(); }catch(e){} vAudio=null; } if(window.speechSynthesis)try{ speechSynthesis.cancel(); }catch(e){} }
 async function speak(text){
-  stopAudio(); setMode("speaking");
+  stopAudio(); setVUI("speaking");
   try{
     const r=await fetch("/api/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,lang})});
-    if(!r.ok) throw new Error("tts");
-    const blob=await r.blob();
-    const audio=new Audio(URL.createObjectURL(blob)); currentAudio=audio;
-    await new Promise((res)=>{ audio.onended=res; audio.onerror=res; audio.play().catch(res); });
-  }catch(e){
-    // graceful fallback to the browser voice if ElevenLabs is unreachable
-    try{ const u=new SpeechSynthesisUtterance(text); u.lang=CODE[lang]; await new Promise(res=>{ u.onend=res; u.onerror=res; speechSynthesis.speak(u); }); }catch(_){}
-  }
-  currentAudio=null; if(uiMode==="speaking") setMode("idle");
+    if(!r.ok)throw new Error("tts");
+    const a=new Audio(URL.createObjectURL(await r.blob())); vAudio=a;
+    await new Promise(res=>{ a.onended=res; a.onerror=res; a.play().catch(res); });
+  }catch(e){ try{ const u=new SpeechSynthesisUtterance(text); u.lang=CODE[lang]; await new Promise(res=>{ u.onend=res; u.onerror=res; speechSynthesis.speak(u); }); }catch(_){} }
+  vAudio=null; if(vUI==="speaking")setVUI("idle");
 }
 
-renderLangs(); render();
+document.addEventListener("keydown",e=>{ if(screen==="voice"&&vPhase==="menu"){ const n=parseInt(e.key,10); if(n>=1&&n<=4){ lang=LANGS[n-1].id; vPhase="call"; render(); vBegin(); } } });
+render();
 </script>
 </body>
 </html>
